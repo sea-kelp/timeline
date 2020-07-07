@@ -1,0 +1,9 @@
+body {
+    text-align: center;
+}
+#content {
+    margin: auto;
+    margin-top: 3.5em;
+    width: 1000px;
+    height: 500px;
+}
