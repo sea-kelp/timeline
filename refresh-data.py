@@ -17,8 +17,8 @@ def cleanup_fields(workbook, row):
 
 print("Downloading data files to data/ dir...")
 
-#urllib.request.urlretrieve("https://data.seattle.gov/resource/28ny-9ts8.json", "data/terry.json")
-#urllib.request.urlretrieve("https://cdn.muckrock.com/foia_files/2017/04/12/Completed_OPA_Cases_with_Allegations_and_Action_Taken_thru_10-12-2016_Supervisor_Actions.xlsx", "data/force.xlsx")
+urllib.request.urlretrieve("https://data.seattle.gov/resource/28ny-9ts8.json", "data/terry.json")
+urllib.request.urlretrieve("https://cdn.muckrock.com/foia_files/2017/04/12/Completed_OPA_Cases_with_Allegations_and_Action_Taken_thru_10-12-2016_Supervisor_Actions.xlsx", "data/force.xlsx")
 
 print("Done!")
 
