@@ -1,9 +1,19 @@
 const officers = {};
 
+function truncateDate(d) {
+    d.setDate(1);
+    d.setHours(0);
+    d.setMinutes(0);
+    d.setSeconds(0);
+    d.setMilliseconds(0);
+    
+    return d;
+}
+
 function getDataHelper(eventType, officerIDFname, dateFname, data) {
     for (const entry of data) {
         const officerID = entry[officerIDFname].trim();
-        const eventDate = new Date(entry[dateFname]);
+        const eventDate = truncateDate(new Date(entry[dateFname]));
 
         if (!officers[officerID]) {
             officers[officerID] = {};
@@ -93,9 +103,6 @@ function renderChartForOfficer(officerID) {
                     type: "time",
                     ticks: {
                         max: new Date()
-                    },
-                    time: {
-                        round: "month"
                     }
                 }],
                 yAxes: [{
