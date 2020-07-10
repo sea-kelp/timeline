@@ -34,13 +34,14 @@ function getData() {
         getDataHelper("force", "ID Number", "Date Occurred", data)
     }).then(() => {
         $.getJSON('data/terry.json', data => {
-            getDataHelper("terry", "officerid", "reported_date", data);
+            getDataHelper("terry", "Officer ID", "Reported Date", data);
         }).then(initDropdown);
     });
 };
 
 function initDropdown() {
     const dropdown = $("#dropdown");
+    const search = $("#search");
     const summingReducer = (a, b) => a + b;
 
     // Sort descending by number of events
@@ -55,7 +56,7 @@ function initDropdown() {
 
     for (const [officerID, sum] of sortedOfficers) {
         const option = $("<option>")
-            .text(`Officer ${officerID} (${sum} events)`)
+            .text(`Badge ${officerID} (${sum} events)`)
             .data("officerID", officerID);
         dropdown.append(option);
     }
@@ -63,6 +64,17 @@ function initDropdown() {
     dropdown.change(() => {
         const officerID = $(dropdown[0].selectedOptions[0]).data("officerID");
         renderChartForOfficer(officerID);
+    });
+
+    search.keypress(e => {
+        if (e.which == 13) {
+            const officerID = parseInt(search.val());
+            if (officers[officerID]) {
+                renderChartForOfficer(officerID);
+            } else {
+                alert("No data found")
+            }
+        }
     });
 
     renderChartForOfficer(sortedOfficers[0][0]);
@@ -78,17 +90,19 @@ function renderChartForOfficer(officerID) {
 
     if (eventTypes["force"]) {
         datasets.push({
-            label: "force",
-            backgroundColor: "#F6C3A5",
-            data: toData(eventTypes["force"])
+            label: "Use of Force Complaints",
+            backgroundColor: "rgb(255, 99, 132)",
+            data: toData(eventTypes["force"]),
+            yAxisID: "force"
         });
     }
 
     if (eventTypes["terry"]) {
         datasets.push({
-            label: "terry",
-            backgroundColor: "#A2C8F2",
-            data: toData(eventTypes["terry"])
+            label: "Terry Stops",
+            backgroundColor: "rgb(54, 162, 235)",
+            data: toData(eventTypes["terry"]),
+            yAxisID: "terry"
         });
     }
 
@@ -106,6 +120,22 @@ function renderChartForOfficer(officerID) {
                     }
                 }],
                 yAxes: [{
+                    id: "force",
+                    position: "right",
+                    scaleLabel: {
+                        display: true,
+                        labelString: "Number of Use of Force Complaints"
+                    },
+                    ticks: {
+                        beginAtZero: true
+                    }
+                }, {
+                    id: "terry",
+                    position: "left",
+                    scaleLabel: {
+                        display: true,
+                        labelString: "Number of Terry Stops"
+                    },
                     ticks: {
                         beginAtZero: true
                     }
