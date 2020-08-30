@@ -90,7 +90,7 @@ function renderChartForOfficer(officerID) {
 
     if (eventTypes["force"]) {
         datasets.push({
-            label: "Use of Force Complaints",
+            label: "OPA Allegations",
             backgroundColor: "rgb(255, 99, 132)",
             data: toData(eventTypes["force"]),
             yAxisID: "force"
