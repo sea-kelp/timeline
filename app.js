@@ -124,7 +124,7 @@ function renderChartForOfficer(officerID) {
                     position: "right",
                     scaleLabel: {
                         display: true,
-                        labelString: "Number of Use of Force Complaints"
+                        labelString: "Number of OPA Allegations"
                     },
                     ticks: {
                         beginAtZero: true
